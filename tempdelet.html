@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy-Paste Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <style>
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 10px; /* Ensure some padding to avoid elements sticking to the edge */
+    box-sizing: border-box;
+}
+
+.copy-board {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 100%; /* Ensures the container doesn't exceed the viewport width */
+    box-sizing: border-box;
+}
+
+pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 0;
+    text-align: left;
+    max-width: 100%; /* Ensures the pre block doesn't exceed the viewport width */
+    box-sizing: border-box;
+}
+
+code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    white-space: pre-wrap; /* Allows code to wrap within the container */
+    word-wrap: break-word; /* Breaks long words to fit within the container */
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Ensures button takes full width on smaller screens */
+    max-width: 300px; /* Limits maximum width for better appearance on larger screens */
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#confirmation-message {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+    word-wrap: break-word; /* Ensures long confirmation messages wrap properly */
+    max-width: 100%; /* Ensures the message doesn't exceed the viewport width */
+    box-sizing: border-box;
+}
+
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    
+    <div class="copy-board">
+        <pre><code id="text-to-copy" class="language-javascript">
+            const example = "This is the text to be copied.";
+            console.log(example);
+        </code></pre>
+        <button id="copy-button">Copy Text</button>
+        <span id="confirmation-message"></span>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        // scripts.js
+document.getElementById('copy-button').addEventListener('click', function() {
+    // Create a temporary textarea element
+    const textToCopy = document.getElementById('text-to-copy').innerText;
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = textToCopy;
+    document.body.appendChild(tempTextArea);
+
+    // Select the text
+    tempTextArea.select();
+    tempTextArea.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary textarea
+    document.body.removeChild(tempTextArea);
+
+    // Show confirmation message
+    const confirmationMessage = document.getElementById('confirmation-message');
+    confirmationMessage.textContent = 'Text copied to clipboard!';
+    setTimeout(() => {
+        confirmationMessage.textContent = '';
+    }, 2000);
+});
+
+
+    </script>
+</body>
+</html>
